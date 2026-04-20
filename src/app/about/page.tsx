@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import ContactForm from "@/components/ContactForm";
 
 export const metadata = {
   title: "About — Factorial Systems, built in Lagos",
@@ -164,33 +165,7 @@ export default function AboutPage() {
             </div>
 
             <div className="md:col-span-5 md:col-start-8">
-              <form className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-sm">
-                <p className="kicker text-white/50 mb-5">
-                  Start a conversation
-                </p>
-
-                <div className="space-y-4">
-                  <FormField label="Your name" id="name" />
-                  <FormField label="Work email" id="email" type="email" />
-                  <FormField label="Company" id="company" />
-                  <FormField
-                    label="What are you looking to build?"
-                    id="message"
-                    textarea
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="mt-6 w-full bg-[color:var(--color-mint)] hover:bg-[#4fc8a6] text-[color:var(--color-ink)] font-medium px-5 py-3 rounded-md transition-colors"
-                >
-                  Send →
-                </button>
-                <p className="mt-3 text-xs text-white/40 leading-relaxed">
-                  We reply within one business day. No sales funnel, no drip
-                  sequence.
-                </p>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </div>
@@ -231,36 +206,6 @@ function ContactRow({
     );
   }
   return <div>{content}</div>;
-}
-
-function FormField({
-  label,
-  id,
-  type = "text",
-  textarea = false,
-}: {
-  label: string;
-  id: string;
-  type?: string;
-  textarea?: boolean;
-}) {
-  const base =
-    "w-full bg-white/5 border border-white/10 rounded-md px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[color:var(--color-mint)] transition-colors";
-  return (
-    <div>
-      <label
-        htmlFor={id}
-        className="kicker text-white/50 mb-2 block"
-      >
-        {label}
-      </label>
-      {textarea ? (
-        <textarea id={id} name={id} rows={4} className={base} />
-      ) : (
-        <input id={id} name={id} type={type} className={base} />
-      )}
-    </div>
-  );
 }
 
 const TEAM = [

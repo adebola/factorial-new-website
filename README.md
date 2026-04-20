@@ -25,6 +25,24 @@ Node 18.18+ required (Node 20 LTS recommended).
 
 ---
 
+## Environment variables
+
+The `/about#contact` form posts to `src/app/api/contact/route.ts`, which sends email via [Brevo](https://www.brevo.com/)'s transactional API. Copy `.env.example` to `.env.local` and fill in:
+
+| Key | Purpose |
+| --- | --- |
+| `BREVO_API_KEY` | API key from Brevo (SMTP & API → API Keys). |
+| `CONTACT_TO` | Primary destination address for form submissions. |
+| `CONTACT_CC` | CC address (every submission is copied here). |
+| `CONTACT_FROM_EMAIL` | Sending address. Must be an authenticated sender in Brevo. |
+| `CONTACT_FROM_NAME` | Display name for the sender (e.g. `Factorial Contact`). |
+
+Before going live, authenticate the sending domain in Brevo (**Senders, Domains & Dedicated IPs → Domains**) by adding the DKIM, DMARC, and tracking DNS records at your registrar. Without this, messages will land in spam.
+
+On Vercel, add the same five keys to the project's environment variables for Production, Preview, and Development.
+
+---
+
 ## Project structure
 
 ```
@@ -78,11 +96,7 @@ All three are free and served from Google Fonts with automatic optimization.
 
 Most page copy sits at the bottom of each `page.tsx` file in exported `const` arrays (services, case studies, team members, etc.). Edit those arrays to update content without touching the layout.
 
-The contact form in `about/page.tsx` is **presentational only** — no backend wired yet. Options to hook it up:
-
-1. **Formspree / Basin / Web3Forms** — drop-in, no backend required
-2. **Resend + API route** — for email delivery from a custom domain
-3. **Your own CRM endpoint** — swap the `<form>` `action` attribute
+The contact form in `about/page.tsx` posts to `/api/contact` and delivers via Brevo. See **Environment variables** above for configuration. To swap providers, rewrite `src/app/api/contact/route.ts`; the client form does not care which ESP sits behind the endpoint.
 
 ---
 
@@ -105,7 +119,6 @@ Alternatives: Netlify, Cloudflare Pages, or any Node-capable host. For a fully s
 
 These are intentional gaps — add when priorities allow:
 
-- **Contact form backend** (see options above)
 - **Analytics** — add Plausible / Fathom / PostHog in `layout.tsx`
 - **OG / social preview image** — generate a static 1200×630 PNG and wire it in `metadata.openGraph.images`
 - **Blog / CMS** — if you want to publish, consider adding Sanity, Contentlayer, or MDX
