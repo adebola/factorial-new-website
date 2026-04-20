@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette */
+  --color-factorial-50: #EBF2FC;
+  --color-factorial-100: #CDDDF6;
+  --color-factorial-200: #9FBDEC;
+  --color-factorial-300: #6E98DF;
+  --color-factorial-400: #3E76D0;
+  --color-factorial-500: #1F5FC0;
+  --color-factorial-600: #1A51A5;
+  --color-factorial-700: #17488F;
+  --color-factorial-800: #143D80;
+  --color-factorial-900: #0F2F63;
+  --color-factorial-950: #081A3C;
+
+  --color-azure: #2BA5DE;
+  --color-mint: #5DD3B3;
+  --color-mint-soft: #E6F5EF;
+
+  --color-ink: #0B1220;
+  --color-ink-soft: #111827;
+  --color-slate: #475569;
+  --color-slate-soft: #64748B;
+  --color-fog: #F1F5F9;
+  --color-fog-soft: #F8FAFC;
+  --color-paper: #FFFFFF;
+
+  /* Typography — resolves to next/font loaded families, with system fallback */
+  --font-display: var(--font-display-loaded, "Space Grotesk"), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-sans-loaded, "Geist"), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-mono-loaded, "JetBrains Mono"), ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink);
+    background: var(--color-paper);
+    font-feature-settings: "ss01", "cv11";
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  ::selection {
+    background: var(--color-factorial-500);
+    color: white;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-mono    { font-family: var(--font-mono); }
+
+  /* Fine grid background for structured sections */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(11, 18, 32, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(11, 18, 32, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bg-grid-dark {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Subtle gradient orb for hero moments — single moment, not everywhere */
+  .orb-mint {
+    background: radial-gradient(closest-side, rgba(93, 211, 179, 0.35), transparent);
+    filter: blur(40px);
+  }
+  .orb-azure {
+    background: radial-gradient(closest-side, rgba(43, 165, 222, 0.35), transparent);
+    filter: blur(40px);
+  }
+  .orb-blue {
+    background: radial-gradient(closest-side, rgba(31, 95, 192, 0.35), transparent);
+    filter: blur(50px);
+  }
+
+  /* Kicker label styling — mono, small, tracked */
+  .kicker {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+  }
+
+  /* Hairline border that works on light + dark */
+  .border-hair { border-color: rgba(11, 18, 32, 0.08); }
+  .border-hair-dark { border-color: rgba(255, 255, 255, 0.08); }
+
+  /* Animation utility for staggered hero reveals */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .rise-0 { animation: rise 0.7s ease-out both; }
+  .rise-1 { animation: rise 0.7s ease-out 0.08s both; }
+  .rise-2 { animation: rise 0.7s ease-out 0.16s both; }
+  .rise-3 { animation: rise 0.7s ease-out 0.24s both; }
+  .rise-4 { animation: rise 0.7s ease-out 0.32s both; }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .shimmer { animation: shimmer 2.4s ease-in-out infinite; }
+}
